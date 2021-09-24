@@ -1,5 +1,6 @@
-import client from "../client";
+import client from "../../client";
 import bcrypt from "bcrypt";
+
 export default {
   Mutation: {
     createAccount: async (
@@ -27,30 +28,6 @@ export default {
       } catch (error) {
         return error;
       }
-    },
-    login: async (_, { userName, password }) => {
-      try {
-        const user = await client.user.findFirst({
-          where: { userName },
-        });
-        if (!user) {
-          return {
-            ok: false,
-            error: "User not found.",
-          };
-        }
-        const passwordOk = await bcrypt.compare(password, user.password);
-        if (!passwordOk) {
-          return {
-            ok: false,
-            error: "password incorrect !",
-          };
-        } else {
-          return {
-            ok: true,
-          };
-        }
-      } catch {}
     },
   },
 };
