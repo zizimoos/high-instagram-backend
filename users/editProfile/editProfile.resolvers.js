@@ -1,12 +1,16 @@
 import client from "../../client";
 import bcrypt from "bcrypt";
+import { createWriteStream } from "fs";
+// import { GraphQLUpload } from "graphql-upload";
 import { protectedResolver } from "../users.utils";
 
 const resolverFn = async (
   _,
-  { firstName, lastName, userName, email, password: newPassword },
+  { firstName, lastName, userName, email, password: newPassword, bio, avatar },
   { loggedInUser }
 ) => {
+  console.log(avatar);
+
   let hashedPassword = null;
   if (newPassword) {
     hashedPassword = await bcrypt.hash(newPassword, 10);
@@ -19,6 +23,7 @@ const resolverFn = async (
       userName,
       email,
       ...(hashedPassword && { password: hashedPassword }),
+      bio,
     },
   });
   if (updatedUser.id) {

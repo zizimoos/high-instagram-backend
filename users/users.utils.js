@@ -21,22 +21,22 @@ export const getUser = async (token) => {
   }
 };
 
-// export const protectedResolver =
-//   (ourResolver) => (root, args, context, info) => {
-//     if (!context.loggedInUser) {
-//       return {
-//         ok: false,
-//         error: "Please log in to perform this action.",
-//       };
-//     }
-//     return ourResolver(root, args, context, info);
-//   };
-
-export const protectedResolver = (ourResolver) => {
-  return (root, args, context, info) => {
+export const protectedResolver =
+  (ourResolver) => (root, args, context, info) => {
     if (!context.loggedInUser) {
-      return { ok: false, error: "Please log in to perform this action." };
+      return {
+        ok: false,
+        error: "Please log in to perform this action.",
+      };
     }
     return ourResolver(root, args, context, info);
   };
-};
+
+// export const protectedResolver = (ourResolver) => {
+//   return (root, args, context, info) => {
+//     if (!context.loggedInUser) {
+//       return { ok: false, error: "Please log in to perform this action." };
+//     }
+//     return ourResolver(root, args, context, info);
+//   };
+// };
