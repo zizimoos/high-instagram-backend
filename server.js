@@ -7,13 +7,7 @@ import { typeDefs, resolvers } from "./schema";
 
 const PORT = process.env.PORT;
 
-const app = express();
-app.use(logger("tiny"));
-app.listen({ port: PORT }, () => {
-  console.log(`✅  Server is running on http://localhost:${PORT}/graphql 🚀`);
-});
-
-const server = new ApolloServer({
+const apollo = new ApolloServer({
   typeDefs,
   resolvers,
   context: async ({ req }) => {
@@ -23,4 +17,11 @@ const server = new ApolloServer({
     };
   },
 });
-server.applyMiddleware({ app });
+
+const app = express();
+app.use(logger("tiny"));
+apollo.applyMiddleware({ app });
+app.use("/static", express.static("uploads"));
+app.listen({ port: PORT }, () => {
+  console.log(`✅  Server is running on http://localhost:${PORT}/graphql 🚀`);
+});
