@@ -11,3 +11,5 @@ instaclone backend
 - follow user
 - unfollow user
 - change avatar (image upload)
+- follow User
+- unfollow User
