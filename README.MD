@@ -13,3 +13,7 @@ instaclone backend
 - change avatar (image upload)
 - follow User
 - unfollow User
+- see Followers & pagination
+- see Following & pagination
+- Computed Field
+- search Users & pagination
