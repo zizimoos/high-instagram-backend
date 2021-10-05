@@ -4,7 +4,7 @@ import { protectedResolver } from "../../users/users.utils";
 const photoUpload = async (_, { file, caption }, { loggedInUser }) => {
   let hashtagObjs = [];
   if (caption) {
-    const hashtags = caption.match(/#[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\w]+/g);
+    const hashtags = caption.match(/#[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|\w]+/g) || [];
     hashtagObjs = hashtags.map((hashtag) => ({
       where: { hashtag },
       create: { hashtag },
